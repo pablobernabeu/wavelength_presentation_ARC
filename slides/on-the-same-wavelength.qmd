@@ -174,7 +174,7 @@ crossing exists, but read about 40% low where checked, so **treat it as a bracke
 :::
 
 ::: {.rule-line}
-Algebra alone: 12,000 core-hours became 1,150, and the same reasoning cut the sample the
+Algebra did it: 12,000 core-hours became 1,150, and the same reasoning cut the sample the
 study needs.
 :::
 
@@ -717,7 +717,7 @@ punctuation, casing and fillers my questions need.
 :::
 
 ::: {.rule-line style="margin-top:0.2em;"}
-In all four, the cluster changed which question I could ask. Not faster — different.
+In all four, the cluster changed which question I could ask.
 :::
 
 ::: src
@@ -742,7 +742,8 @@ precision, fp32, so the scores are comparable across models.
 The normaliser line is the one an evaluation-minded audience will remember: the benchmark number
 you publish is a function of what you agree to throw away.
 
-Land on "not faster — different."
+Land on the last line, and say the half that is not printed: the cluster did not make these
+analyses faster, it made them possible.
 :::
 
 ## What would help most {data-menu-title="Asks and offers"}
@@ -773,12 +774,11 @@ Land on "not faster — different."
 :::
 
 ::: {.rule-line}
-Nothing here is a request for more compute. It is one conversation, one limit written down,
-and a bug report.
+The two asks are documentation. The two offers are work I can do.
 :::
 
 ::: src
-**Acknowledgement, as ARC asks:** *"The authors would like to acknowledge the use of the
+**Acknowledgement:** *"The authors would like to acknowledge the use of the
 University of Oxford Advanced Research Computing (ARC) facility in carrying out this work.
 https://doi.org/10.5281/zenodo.22558"*<br>
 pablo.bernabeu@education.ox.ac.uk · ORCID 0000-0003-1083-2460 · github.com/pablobernabeu ·
@@ -947,6 +947,6 @@ https://doi.org/10.5281/zenodo.22558
 :::
 
 ::: src
-Software and model versions are given on the slides that use them. Full list, with links, in the
-repository.
+Software and model versions are given on the slides that use them. The full list, with links,
+is in the repository.
 :::
