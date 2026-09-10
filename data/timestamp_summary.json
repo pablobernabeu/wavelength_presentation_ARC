@@ -1,0 +1,13 @@
+{
+  "n": 499,
+  "mae_start": 0.0087374749498998,
+  "mae_end": 0.12713464428857715,
+  "mae_total": 0.13587211923847695,
+  "rmse_start": 0.07091726529579427,
+  "rmse_end": 0.46053781630440555,
+  "mean_start_error": 0.0087374749498998,
+  "mean_end_error": 0.12024010521042085,
+  "n_skipped": 1,
+  "dataset": "edinburghcstr/ami/ihm/test",
+  "model": "openai/whisper-large-v3"
+}

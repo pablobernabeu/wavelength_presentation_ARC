@@ -1,0 +1,35 @@
+# Quarto
+/.quarto/
+*_files/
+/_freeze/
+/site_libs/
+
+# Rendered output kept in docs/ only
+/slides/*.html
+!/docs/**
+
+# OS / editor
+Thumbs.db
+Desktop.ini
+.DS_Store
+*~
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+
+# Local scratch
+/scratch/
+*.log
+__pycache__/
+*.pyc
+
+# Working research dossiers. Kept on disk for preparing the talk, deliberately
+# NOT committed: they quote SSH host aliases, project account codes, usernames,
+# job IDs and scheduler captures that include other people's jobs.
+/notes/research/
+
+# Speaker's own preparation notes. Kept on disk, deliberately NOT committed: they
+# record what to verify before the day, which claims were cut and why, and the
+# lines to say aloud. None of that belongs in a public repository.
+/notes/speaker-checklist.md

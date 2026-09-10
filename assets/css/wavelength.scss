@@ -1,0 +1,360 @@
+/*-- scss:defaults --*/
+
+// Palette. The teal is the one colour Pablo's Marp slide theme
+// (genai-research-teaching/themes/workshop.css) and his Meridian documentation
+// brand (claude-meridian/.../BRAND.md) independently agree on.
+$ink:        #1c2024;   // Marp --color-foreground
+$paper:      #fbfbfc;   // Marp --color-background
+$teal:       #0f6e6e;   // Meridian "Teal (primary)" == Marp --workshop-accent
+$teal-dark:  #0b5757;   // Marp --color-highlight-hover
+$teal-pale:  #e7eeef;   // Marp inline-code background
+$muted:      #5b6470;   // Marp --color-dimmed
+$rule:       #d6dbe0;   // Marp --workshop-rule
+$redline:    #a3271f;   // Marp --workshop-redline (data-protection callout)
+$amber:      #e8a33d;   // Meridian accent
+$navy:       #002147;   // Oxford blue, from the crest in his own deck
+
+$body-bg:    $paper;
+$body-color: $ink;
+$link-color: $teal;
+
+$presentation-heading-color:  $teal;
+// 1280x760 canvas with dense, artefact-heavy slides: the root size is set so a
+// full slide fits without reveal.js overflowing. Verified slide by slide.
+$presentation-font-size-root: 23px;
+$presentation-font-family:    "Segoe UI", "Helvetica Neue", Arial, system-ui, sans-serif;
+$presentation-heading-font:   "Segoe UI", "Helvetica Neue", Arial, system-ui, sans-serif;
+$presentation-heading-font-weight: 600;
+$font-family-monospace: "Cascadia Mono", ui-monospace, Consolas, "Liberation Mono", Menlo, monospace;
+
+$code-color: #0b4a4a;   // Marp code text
+$code-bg:    $teal-pale;
+$code-block-font-size: 0.60em;
+
+/*-- scss:rules --*/
+
+.reveal { letter-spacing: 0.1px; }
+
+// `top: 0` pins body slides to the top of the canvas. It must NOT apply to slides Quarto
+// marks `.center` (the title slide and the backup divider): reveal centres those by writing
+// `top` inline, and an !important here pushed the title's first line above the canvas edge.
+//
+// padding-bottom reserves the band Quarto's position:fixed footer occupies. The footer is
+// unscaled, so in slide coordinates it sits at roughly y 736-762 at a 1280x720 output and the
+// viewport clips at 782. Reserving 34px makes an overrun visible while authoring rather than at
+// the venue: treat 726px as the real content budget.
+.reveal .slides section:not(.center) {
+  text-align: left;
+  top: 0 !important;
+  padding-bottom: 34px;
+  box-sizing: border-box;
+}
+.reveal .slides section.center { text-align: left; }
+
+// ---------------------------------------------------------------- headings --
+.reveal h1, .reveal h2, .reveal h3 { text-transform: none; letter-spacing: -0.3px; }
+
+.reveal h2 {
+  font-size: 1.42em;
+  line-height: 1.15;
+  border-bottom: 2px solid $rule;
+  padding-bottom: 0.28em;
+  margin-bottom: 0.62em;
+}
+
+.reveal h3 { font-size: 1.02em; color: $ink; margin-bottom: 0.4em; }
+
+// ------------------------------------------------------------- title slide --
+#title-slide {
+  text-align: left;
+
+  .title {
+    font-size: 1.95em;
+    color: $teal;
+    line-height: 1.05;
+    margin-bottom: 0.10em;
+    font-weight: 600;
+    letter-spacing: -1.2px;
+  }
+  .subtitle {
+    font-size: 1.05em;
+    color: $ink;
+    line-height: 1.3;
+    margin-bottom: 1.25em;
+    font-weight: 400;
+  }
+
+  .quarto-title-authors {
+    display: block;
+    justify-content: flex-start;
+    padding-bottom: 0;
+    border-top: 2px solid $rule;
+    padding-top: 0.65em;
+  }
+  .quarto-title-author {
+    padding: 0;
+    text-align: left;
+  }
+  .quarto-title-author-name {
+    font-size: 0.66em;
+    font-weight: 600;
+    color: $ink;
+    margin-bottom: 0.15em;
+  }
+  .quarto-title-author-name a { color: $ink; }
+  .quarto-title-affiliation {
+    font-size: 0.56em;
+    color: $muted;
+    line-height: 1.5;
+    font-style: normal;
+  }
+  .date {
+    font-size: 0.56em;
+    color: $muted;
+    margin-top: 0.55em;
+  }
+}
+
+// The Oxford crest appears on the cover and the closing slide only, following
+// the convention in his own Marp theme (workshop.css, section.brand::before).
+// On the closing slide it sits bottom-right, clear of the two text columns.
+//
+// The !important sizes are load-bearing. Quarto tags a slide's sole image with
+// reveal.js's .r-stretch, and reveal then writes width and height as an INLINE
+// style at layout time; measured in the browser, the crest came out 139x137 px
+// instead of 76x76. A stylesheet !important outranks a normal inline
+// declaration, so these two lines are what actually decide the size.
+.crest {
+  position: absolute;
+  bottom: 4px;
+  right: 6px;
+  top: auto;
+  width: 76px !important;
+  height: 76px !important;
+  opacity: 0.95;
+  margin: 0 !important;
+}
+
+// ------------------------------------------------------------------- lists --
+// Quarto ships `.reveal .slide ul li, .reveal .slide ol li { margin-top: .4em;
+// margin-bottom: .2em }` at specificity (0,2,3), which silently outranks a plain
+// `.reveal li` rule. Match its selector shape or the theme's list spacing never
+// applies -- measured in the browser: a bare `.reveal li { margin-bottom: 0.34em }`
+// was losing, and every list in the deck was sitting at Quarto's 0.2em.
+.reveal ul, .reveal ol { margin-left: 0.1em; }
+.reveal li { line-height: 1.36; }
+.reveal .slide ul li,
+.reveal .slide ol li { margin-top: 0.24em; margin-bottom: 0.34em; }
+.reveal li > ul { margin-top: 0.24em; }
+
+// --------------------------------------------------------------- big number --
+.bignum {
+  font-size: 2.55em;
+  font-weight: 700;
+  color: $teal;
+  line-height: 1;
+  letter-spacing: -2px;
+  font-variant-numeric: tabular-nums;
+}
+.bignum-sub {
+  font-size: 0.80em;
+  color: $muted;
+  margin-top: -0.15em;
+  display: block;
+}
+
+.midnum {
+  font-size: 1.55em;
+  font-weight: 700;
+  color: $teal;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.05;
+}
+
+// ------------------------------------------------------------------ colours --
+.warn   { color: $redline; font-weight: 600; }
+.tealx  { color: $teal;    font-weight: 600; }
+.muted  { color: $muted; }
+
+// ---------------------------------------------------------------- source line --
+// Every factual slide carries its provenance in the same place, small. At the
+// previous 0.46em this rendered at 10.6px, and inline code inside it at 9.3px,
+// which no one reads past the second row of a lecture theatre. 0.52em is ~12px:
+// still clearly subordinate, still legible to anyone who leans in. The line is
+// kept to one or two rows per slide so the extra height costs nothing.
+.src {
+  font-size: 0.52em;
+  color: $muted;
+  line-height: 1.4;
+  border-top: 1px solid $rule;
+  padding-top: 0.45em;
+  margin-top: 0.7em;
+  font-family: $font-family-monospace;
+}
+// The provenance line is already monospace and already small; shrinking inline
+// code inside it again drops it below 10px.
+.reveal .src code { font-size: 1em; background: transparent; padding: 0; }
+
+// ------------------------------------------------------------------ columns --
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1em; align-items: start; }
+
+// Slides that carry less than the canvas can hold. Setting them with more leading fills the
+// frame without padding the talk: a slide using two thirds of its height reads as unfinished,
+// and the fix should not cost spoken seconds. Applied per slide, measured in the browser.
+.reveal .slide .airy ul li,
+.reveal .slide .airy ol li { margin-top: 0.55em; margin-bottom: 0.75em; }
+.reveal .airy p { margin-bottom: 0.85em; }
+
+// A callout is a box, not a run of prose: the last paragraph inside one should not push the
+// border away from it. Measured, this was costing about 20px on every boxed element -- roughly
+// 260px across the deck, which is most of a slide.
+.reveal .rule-line p:last-child,
+.reveal .redbox p:last-child,
+.reveal .tealbox p:last-child,
+.reveal .pullquote p:last-child { margin-bottom: 0; }
+.reveal .rule-line p:first-child,
+.reveal .redbox p:first-child,
+.reveal .tealbox p:first-child { margin-top: 0; }
+.cols-6040 { display: grid; grid-template-columns: 1.5fr 1fr; gap: 1.1em; align-items: start; }
+.cols-4060 { display: grid; grid-template-columns: 1fr 1.5fr; gap: 1.1em; align-items: start; }
+
+// -------------------------------------------------------------- pull quote --
+.pullquote {
+  background: #ffffff;
+  border-left: 5px solid $teal;
+  padding: 0.75em 1.0em;
+  font-size: 1.02em;
+  line-height: 1.42;
+  color: $ink;
+  margin: 0.5em 0;
+}
+.pullquote .attrib { display: block; font-size: 0.60em; color: $muted; margin-top: 0.6em; }
+
+.redbox {
+  font-size: 0.74em;
+  background: #fbf1f0;
+  border-left: 5px solid $redline;
+  padding: 0.6em 0.9em;
+  margin: 0.4em 0;
+}
+
+.tealbox {
+  background: $teal-pale;
+  border-left: 5px solid $teal;
+  padding: 0.6em 0.9em;
+  margin: 0.4em 0;
+  font-family: $font-family-monospace;
+  font-size: 0.66em;
+}
+
+// ------------------------------------------------------------------- tables --
+.reveal table { font-size: 0.66em; border-collapse: collapse; width: 100%; }
+.reveal table th {
+  background: #eef3f3;
+  color: $ink;
+  border-bottom: 2px solid $rule;
+  text-align: left;
+  padding: 0.42em 0.55em;
+  font-weight: 600;
+}
+.reveal table td {
+  border-bottom: 1px solid $rule;
+  padding: 0.40em 0.55em;
+  vertical-align: top;
+}
+
+// --------------------------------------------------------------------- code --
+// box-sizing on BOTH the pre and the code is load-bearing. Quarto wraps every
+// highlighted block in a div.sourceCode; the pre inside it is width:100% of that
+// div's content box, and its 1px border then pushes the block 2px wider than its
+// parent. Measured in the browser, that put a horizontal scrollbar under every
+// code block on the deck. Sizing the border into the width removes it.
+.reveal pre {
+  box-shadow: none;
+  width: 100%;
+  margin: 0.35em 0;
+  background: $teal-pale;
+  border: 1px solid #cfdadb;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+.reveal pre code {
+  padding: 0.7em 0.9em;
+  background: transparent;
+  max-height: none;
+  line-height: 1.34;
+  box-sizing: border-box;
+  width: 100%;
+}
+.reveal div.sourceCode { overflow: visible; margin: 0; }
+
+// A column heading. Deliberately NOT a real <h3>: Quarto wraps headings in
+// section divs, which breaks out of the surrounding column grid.
+.colhead {
+  display: block;
+  font-size: 1.0em;
+  font-weight: 600;
+  color: $ink;
+  margin-bottom: 0.45em;
+}
+.reveal code { color: $code-color; }
+.reveal p code, .reveal li code, .reveal td code {
+  background: $teal-pale;
+  padding: 0.05em 0.28em;
+  border-radius: 2px;
+  font-size: 0.88em;
+}
+
+// ------------------------------------------------------------------ figures --
+.reveal .slides section img { border: none; box-shadow: none; margin: 0.2em 0; }
+
+// --------------------------------------------------------------- act marker --
+.act {
+  display: inline-block;
+  font-size: 0.60em;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: $teal;
+  font-weight: 700;
+  border: 1px solid $teal;
+  border-radius: 2px;
+  padding: 0.12em 0.55em;
+  margin-bottom: 0.4em;
+}
+
+// The conclusion. One per content slide, always the last thing above the provenance line, so the
+// audience learns within two slides that the ruled line is the point. It is set to be
+// photographed, which is the test of whether a sentence deserves it: if it would not survive
+// being read off someone's phone a week later, it is not a conclusion.
+//
+// The vertical cost is deliberate but bounded -- about 58px for one line -- because thirteen of
+// them have to fit alongside everything else. Keep each to one or two lines.
+.rule-line {
+  font-size: 0.90em;
+  font-weight: 600;
+  color: $navy;
+  border-top: 2px solid $teal;
+  border-bottom: 2px solid $teal;
+  padding: 0.42em 0;
+  margin-top: 0.5em;
+  line-height: 1.32;
+}
+
+// ----------------------------------------------------------------- footer/chrome --
+.reveal .footer { color: $muted; font-size: 0.42em; }
+.reveal .slide-number { color: $muted; font-size: 0.42em; background: transparent; }
+.reveal .progress { color: $teal; height: 3px; }
+
+// ------------------------------------------------------------------- appendix --
+.appendix h2 { color: $muted; border-bottom-color: $rule; }
+
+.smaller  { font-size: 0.80em; line-height: 1.40; }
+.smallest { font-size: 0.66em; line-height: 1.42; }
+
+// Reference entries, APA 7 hanging indent.
+.refs p {
+  text-indent: -1.1em;
+  padding-left: 1.1em;
+  margin-bottom: 0.55em;
+  overflow-wrap: anywhere;
+}
