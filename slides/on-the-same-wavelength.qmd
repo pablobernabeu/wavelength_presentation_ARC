@@ -40,7 +40,7 @@ engine: markdown
 ::: {}
 [Six months]{.bignum style="font-size:2.0em;"}
 
-[of high-performance computing (HPC) on one question — how many participants does this study
+[of high-performance computing (HPC) on one question: how many participants does this study
 need? The largest samples never finished.]{.bignum-sub}
 :::
 
@@ -55,7 +55,7 @@ need? The largest samples never finished.]{.bignum-sub}
 :::
 
 ::: {.rule-line}
-Compute was not a delay here; it was a cap. What finished set what the paper could claim.
+Compute set a ceiling here. What finished on the cluster set what the paper could claim.
 :::
 
 ::: {.redbox}
@@ -71,7 +71,7 @@ Thesis reference in the backup slides. Batch timings read back out of the saved 
 [~60 s]  (The 25-second opening over the title slide is in the checklist, §7 — learn it; this
 pane is blank while you deliver it.)
 
-The hook is intractability. What it cost is beside the point; the analysis outran the method.
+The hook is intractability. What it cost is beside the point. The analysis outran the method.
 
 Say the shape: cost grows faster than the sample, so the grid is all top end. Double the
 participants and you do not double the bill.
@@ -79,12 +79,12 @@ participants and you do not double the bill.
 Then the honest part: the claims about the largest samples are extrapolations, because those
 cells never came back and the paper went out on the curves that did.
 
-Then the turn, clearly, because someone will check. Lancaster, not Oxford. And say the split —
-two months running, four months waiting — because this room will recognise it.
+Then the turn, clearly, because someone will check: this was Lancaster. And say the split, two
+months running against four months waiting, because this room will recognise it.
 
-Then the promise, spoken, not printed: "Three strands follow — words, brainwaves, speech. Two of
-the three are CPU-only, and I'll be specific about which parts are AI and which are deliberately
-not." The rest of the talk pays that off.
+Then the promise, which is spoken and appears nowhere on the slide: "Three strands follow:
+words, brainwaves, speech. Two of the three are CPU-only, and I'll be specific about where the
+AI sits." The rest of the talk pays that off.
 :::
 
 ## What the analysis is, and why it has no closed form {data-menu-title="What the analysis is"}
@@ -96,8 +96,8 @@ not." The rest of the talk pays that off.
 - **The question.** Does a word's meaning come from the company it keeps in text, or from how it
   looks and feels?
 
-- **The data.** One observation is one person, one word, one reaction time — **345,666** in
-  Study 1.
+- **The data.** One observation is one person, one word, one reaction time. Study 1 has
+  **345,666** of them.
 
 - **The model.** **20 fixed-effect terms and 9 random-effect terms**, per participant *and* per
   word, because people differ and words differ.
@@ -114,7 +114,7 @@ not." The rest of the talk pays that off.
 
 ::: {.rule-line}
 No formula gives the power of a model like this. So you refit it: 200 times, per effect, per
-sample size — about 80,000 refits in all.
+sample size. About 80,000 refits in all.
 :::
 
 ::: src
@@ -136,26 +136,26 @@ is what turns it into an HPC problem.
 The array line is the transferable one for this room. Say it lightly — they have all done it.
 :::
 
-## 12,000 core-hours, or 1,150 {data-menu-title="Algebra, not hardware"}
+## 12,000 core-hours, or 1,150 {data-menu-title="Cheaper by algebra"}
 
 [Act 1 — Words]{.act}
 
 ::: cols-6040
 ::: {}
-- **376,054 reaction times.** Redoing that design at full scale: about **12,000 core-hours** —
-  500 days on one core.
+- **376,054 reaction times.** Redoing that design at full scale costs about **12,000
+  core-hours**, or 500 days on a single core.
 
 - **One change does most of it:** score all seven effects from **one** set of simulations.
-  Sevenfold, and exact — the same fits, read seven ways.
+  Sevenfold, and exact: the same fits, read seven ways.
 
-- **Two more exact steps reach about 1,150** — power is a success count, so chunks add up; and a
-  plainer fit for `simr`, another 1.4×.
+- **Two more exact steps reach about 1,150.** Power is a success count, so chunks add up, and a
+  plainer `simr` object saves another 1.4×.
 :::
 
 ::: {}
 ::: {style="text-align:center; margin-top:0.2em;"}
 [>2,000]{.midnum style="color:#5b6470;"}<br>
-[participants under the archived curves, never reaching 80% power<br>— an eight-in-ten chance of
+[participants under the archived curves, never reaching 80% power<br>an eight-in-ten chance of
 detecting a real effect]{.smallest}
 
 ::: {style="font-size:1.3em; color:#0f6e6e; margin:0.2em 0;"}
@@ -167,15 +167,15 @@ detecting a real effect]{.smallest}
 :::
 
 ::: {.redbox style="margin-top:0.5em;"}
-46 is an **analytic screen**, not a `simr` result. It agreed with `simr` on every effect about
-whether a crossing exists, but read about 40% low where checked. **A bracket, not an answer.**
+46 comes from an **analytic screen**. It agreed with `simr` on every effect about whether a
+crossing exists, but read about 40% low where checked, so **treat it as a bracket**.
 :::
 :::
 :::
 
 ::: {.rule-line}
-Algebra, not hardware: 12,000 core-hours became 1,150, and the same algebra moved the sample
-size.
+Algebra alone: 12,000 core-hours became 1,150, and the same reasoning cut the sample the
+study needs.
 :::
 
 ::: src
@@ -196,8 +196,8 @@ half of the job, and this audience will recognise it as their own.
 The mechanism is worth one sentence: more trials for each person means each person carries more
 information, so the sample the study needs falls.
 
-MUST SAY: "treat 46 as a bracket, not an answer." A screen that ran 40% low where it could be
-checked cannot carry a forty-fold claim without the qualifier.
+MUST SAY: "treat 46 as a bracket." A screen that ran 40% low where it could be checked cannot
+carry a forty-fold claim without the qualifier.
 
 Say the array is written and costed but not submitted. At this scale the cost is a decision.
 :::
@@ -223,7 +223,8 @@ Say the array is written and costed but not submitted. At this scale the cost is
 - **Correlated by-participant and by-item slopes**: one person's effects may move together, and
   one word's. The legacy forbade it, to make the old software converge.
 
-- **32,000 posterior draws per fit** — 32,000 plausible answers, not one estimate.
+- **32,000 posterior draws per fit.** The model returns a spread of plausible answers, and its
+  width is the uncertainty.
 
 - **102 fits, all converged, zero divergent transitions.** Worst R-hat 1.0072, against a gate set
   before fitting: R-hat below 1.01.
@@ -231,7 +232,8 @@ Say the array is written and costed but not submitted. At this scale the cost is
 :::
 
 ::: {.rule-line}
-One choice drives every core-hour here: 728,352 single-trial rows, not 23,000 averages.
+Every core-hour here follows from one choice: 728,352 single-trial rows, thirty times what the
+averaged analysis would have carried.
 :::
 
 ::: src
@@ -281,7 +283,7 @@ source _shared/hpc/arc_env.sh
 export LES_THREADS_PER_CHAIN=2
 ```
 
-- **8 CPUs is 4 chains × 2 threads each** — four chains, because convergence is judged by
+- **8 CPUs is 4 chains × 2 threads each.** Four chains, because convergence is judged by
   comparing them.
 :::
 
@@ -297,7 +299,7 @@ export LES_THREADS_PER_CHAIN=2
 :::
 
 ::: {.rule-line}
-192 GB to prepare the data, 96 GB to model it: memory, not cores, sizes these jobs.
+192 GB to prepare the data, 96 GB to model it. Memory is what sizes these jobs.
 :::
 
 ::: src
@@ -313,8 +315,9 @@ The point is the correspondence: every directive traces to a scientific decision
 four chains times two threads. Eighteen tasks is three properties by three time windows by two
 scalp regions, and the grid on the right is the array index, literally.
 
-While the script is on screen, say what the walltime is not: five days is the ceiling, not the
-runtime. A maximal model on this many trials samples slowly, and the `-O1` pin slows it further.
+While the script is on screen, gloss the walltime: five days is a ceiling I asked for, and the
+partition allows thirty. A maximal model on this many trials samples slowly, and the `-O1` pin
+slows it further.
 
 Best single line: "the array index is the design grid."
 
@@ -324,7 +327,7 @@ twice what fitting does.
 Keep this slide even if the talk has to be shortened.
 :::
 
-## Two thirds of the array died in the compiler {data-menu-title="Compiler ICE"}
+## Two thirds of the array died in the compiler {data-menu-title="Compiler crash"}
 
 [Act 2 — Brainwaves]{.act}
 
@@ -341,15 +344,15 @@ An internal compiler error: GCC 14.2.0, the compiler inside
 
 | Build | Result |
 |---|---|
-| threading + `-O3` | [ICE after 19 s]{.warn} |
-| threading + `-O2` | [ICE after 4 s]{.warn} |
-| threading + `-O1` | builds in 90 s — **chosen** |
+| threading + `-O3` | [crashes after 19 s]{.warn} |
+| threading + `-O2` | [crashes after 4 s]{.warn} |
+| threading + `-O1` | builds in 90 s, **chosen** |
 | no threading + `-O3` | builds in 82 s |
 :::
 
 ::: {}
-- **Peak memory under 2 GB** against a 96 GB allocation. **A compiler bug, not a resource
-  limit.**
+- **Peak memory under 2 GB** against a 96 GB allocation, so nothing here was starved.
+  **The fault was in the compiler.**
 
 - **The fix is one line**, appended to `$CMDSTAN/make/local` by every job:
 
@@ -366,7 +369,7 @@ CXXFLAGS_OPTIM = -O1
 :::
 
 ::: {.rule-line}
-Two fixes cleared the crash; the faster one would have changed the posterior.
+Two fixes cleared the crash. The faster one would have changed the posterior.
 :::
 
 ::: src
@@ -404,7 +407,7 @@ Keep this slide if the talk has to be shortened.
   the curve (**AUC**), where 0.5 is chance.
 
 - **The leakage guard.** Leave one whole participant out of every fold, so no one person sits on
-  both sides of a split. Chance is measured, not assumed: shuffle the labels within participant
+  both sides of a split. Chance is measured by permutation: shuffle the labels within participant
   and re-run the entire decoder, **1,000 times**.
 
 - **What that costs.** For one property, 300 time points × 63 participants × 1,001 fits ≈
@@ -414,8 +417,8 @@ Keep this slide if the talk has to be shortened.
 ::: {}
 ![](../assets/img/fig-decoding-runtime.svg)
 
-`--array=0-2` — one task per property, 8 CPUs × 32 GB = **256 GB**, and the memory goes on
-rebuilding the trial × channel × time tensor, not on the decoding.
+`--array=0-2`, one task per property, 8 CPUs × 32 GB = **256 GB**. The memory goes on
+rebuilding the trial × channel × time tensor. Each individual fit is tiny.
 
 What nine days bought: grammaticality decodable from about **380 ms** after the critical word,
 at an AUC of 0.53, above the permutation null.
@@ -472,14 +475,14 @@ interviews: special-category data under Article 9 of the UK General Data Protect
 ::: cols
 ::: {}
 Beyond the law, **opacity about model versions** makes a cloud transcription unreproducible. Nor
-is there much accuracy to trade — Landesvatter et al. (2025) found Google Cloud beaten by almost
+is there much accuracy to trade: Landesvatter et al. (2025) found Google Cloud beaten by almost
 every open-weight system tested.
 :::
 
 ::: {}
 ::: {.redbox}
 **Where the documentation stops:** the ARC user guide covers connecting, storage, quotas and
-backups. Special-category data is not in it — what may be held, where, or who to ask first.
+backups. Special-category data is not in it: what may be held, where, or who to ask first.
 :::
 :::
 :::
@@ -503,8 +506,8 @@ where a GPU is not optional, and the reason has nothing to do with speed."
 Let the pull quote sit on screen and read it aloud, word for word, slowly. It is a promise made
 about children's data.
 
-This is a constraint on the *science*, not a preference. That framing is what makes the
-GPU-on-ARC route the only one available.
+This constrains the *science* itself. That framing is what makes the GPU-on-ARC route the only
+one available.
 
 On the Landesvatter finding, add the domain in one sentence: that was short single-speaker
 survey audio, so treat it here as suggestive.
@@ -514,7 +517,7 @@ on. Say the ask aloud here and let the closing slide collect it: "that conversat
 service I need most."
 
 Do not claim ARC forbids anything, or quote a policy at them. The point is narrower and safer:
-the guide does not cover this, so the route has to be agreed rather than looked up.
+the guide does not cover this, so the route has to be agreed with someone.
 
 If asked where the research audio itself is processed: everything on ARC in this talk is
 benchmarking and evaluation on public corpora. Do not go further from the stage.
@@ -537,12 +540,12 @@ benchmarking and evaluation on public corpora. Do not go further from the stage.
 
 - `openai/whisper-large-v3` on GPU, with `pyannote/speaker-diarization-3.1` labelling who spoke
   when on the same device. One array task per corpus, resubmitted per model: **3 models ×
-  5 corpora × 16 text-cleanup conditions = 240 cells**.
+  5 corpora × 16 text-cleanup conditions = 240 scored combinations**.
 :::
 
 ::: {}
-Large-v3: **6.2% word error rate on read speech, 32% on meeting audio** — roughly one word in
-three to correct. Same model; the audio decides.
+Large-v3: **6.2% word error rate on read speech, 32% on meeting audio**, roughly one word in
+three to correct. Same model. The audio decides.
 
 ``` bash
 JID=$(sbatch --parsable hpc/submit_sweep.sh)
@@ -552,8 +555,8 @@ sbatch --dependency=afterok:${JID} hpc/aggregate_sweep.sh
 Aggregation runs only if decoding succeeded: no GPU, 8 GB, half an hour.
 
 ::: {.rule-line}
-The GPU decodes each corpus once; a seventeenth condition costs no GPU time. Don't spend a GPU
-allocation on string comparison.
+The GPU decodes each corpus once, so a seventeenth condition costs no GPU time. Don't spend a
+GPU allocation on string comparison.
 :::
 :::
 :::
@@ -570,10 +573,10 @@ individual-headset-microphone split (Carletta et al., 2006), CC BY 4.0.
 Read the header. Note `--clusters=htc` and say why: on ARC, GPUs live only on HTC.
 
 Then the two accuracy numbers, because they are the first the audience has heard: six per cent
-on read speech, thirty-two on meetings. The model is fine; the audio is the problem.
+on read speech, thirty-two on meetings. The model is fine. The audio is the problem.
 
-The economical part: sixteen text-cleanup conditions scored off one decoding pass, so they
-cost one GPU pass, not sixteen.
+The economical part: sixteen text-cleanup conditions scored off one decoding pass, so all
+sixteen cost one pass of the GPU between them.
 
 Then the job-chaining pair, which is the one thing here they can take away today. Punchline: "don't
 spend a GPU allocation on string comparison."
@@ -591,7 +594,8 @@ benchmarking and fine-tuning.
 ::: {}
 [1 — A fix that halved the end-boundary error]{.colhead}
 
-Over 499 AMI meeting utterances, Whisper's starts are near frame-accurate; its **ends are not**.
+Over 499 AMI meeting utterances, Whisper's starts are near frame-accurate. Its **ends are
+not**.
 **Silero**, a 1 MB voice-activity detector, re-cuts each end at the last voiced frame.
 
 
@@ -616,17 +620,17 @@ Lower pyannote's clustering threshold to 0.60 and diarisation gets [**worse**]{.
 and false alarm stay **bit-identical**.
 
 ::: {.redbox}
-16 mini-meetings, not the full test set, and that average hides a spread from **5.6% to 76.7%**.
+A 16-meeting subset, and that average hides a spread from **5.6% to 76.7%**.
 :::
 :::
 :::
 
 ::: {.rule-line}
-Cheap re-runs change what you are willing to verify — and to publish.
+Cheap re-runs change what you are willing to verify, and what you are willing to publish.
 :::
 
 ::: src
-`timestamp_summary.json` versus `evaluation_vad_refine/` (one utterance of 500 skipped);
+`timestamp_summary.json` versus `evaluation_vad_refine/`;
 `der_summary.json` versus `evaluation_clustering_0.60/`. Both runs: one short GPU job on an
 H100 node.
 :::
@@ -656,15 +660,15 @@ check I would have run if re-running were expensive."
 | | What | Where |
 |---|---|---|
 | [**GPU, inference**]{.tealx} | Whisper large-v3, distil-large-v3 and medium; pyannote 3.1 diarisation; Silero VAD; six Pythia language models, 70m–2.8b parameters | ARC `htc` |
-| [**GPU, training**]{.tealx} | Fine-tuning `pyannote/segmentation-3.0`. **The only model I train**, because far-field diarisation runs near 57% error — the sound of a real focus group. | ARC `htc` |
+| [**GPU, training**]{.tealx} | Fine-tuning `pyannote/segmentation-3.0`. **The only model I train**, because far-field diarisation runs near 57% error, the sound of a real focus group. | ARC `htc` |
 | **CPU, machine learning** | Leave-one-participant-out ridge linear-discriminant decoding; projection-predictive variable selection; brms and Stan throughout | ARC |
 | **No GPU, on purpose** | *"Do not add `--gres=gpu` to any SLURM script. Stan/CmdStan does not benefit from GPU for the ordinal mixed models used here."* **Continuous integration fails the build if a GPU directive appears.** | ARC |
 
-An unconstrained GPU job died in **14 seconds** on a Skylake node — *"your machine doesn't
+An unconstrained GPU job died in **14 seconds** on a Skylake node: *"your machine doesn't
 support AVX512_CLX"*. The fix was a **CPU**-generation constraint on a **GPU** job.
 
 ::: {.rule-line style="margin-top:0.4em;"}
-The GPUs here run other people's models as measuring instruments, not as things to train.
+The GPUs here run other people's models as measuring instruments.
 :::
 
 ::: src
@@ -685,8 +689,7 @@ technical reason.
 Then the AVX512 story. The maths library aborts at import on the wrong core generation, so the
 fix for a GPU job is a CPU constraint.
 
-Close on the framing line. I am not training models; I am using other people's as measuring
-instruments.
+Close on the framing line. I am using other people's models as measuring instruments.
 :::
 
 ## What the cluster made possible {data-menu-title="What became possible"}
@@ -697,7 +700,7 @@ instruments.
 long people took to read it. **Inverse scaling**: past a certain size, a better language model
 predicts *people* worse.
 
-**Brainwaves.** Chance measured rather than assumed: 1,000 re-runs of the decoder for each
+**Brainwaves.** Chance established by permutation: 1,000 re-runs of the decoder for each
 property, including the one that came back null.
 
 **Speech.** A word error rate that depends on what you agree to throw away. The same transcripts
@@ -705,7 +708,7 @@ score 6.2% on read speech and 2.3% under the canonical normaliser, which discard
 punctuation, casing and fillers my questions need.
 
 **Design.** A sample-size requirement bracketed near 46 where the old one said more than
-2,000 — **before** anyone is recruited.
+2,000, and **before** anyone is recruited.
 :::
 
 ::: {}
@@ -724,11 +727,11 @@ pythia-410m beats pythia-2.8b in 99% of 500 resamples, 95% confidence interval o
 :::
 
 ::: notes
-[~65 s] The close the brief asks for: what became newly *possible*, not what got faster.
+[~65 s] The close the brief asks for: what became newly *possible*.
 
-Open with the four bottlenecks, spoken rather than printed. Every one has already been shown:
-memory in the 192 GB extraction, the compiler in the internal compiler error, the walltime in the
-decoding wall, the filesystem in the weights staged out to nodes with no egress.
+Open with the four bottlenecks, none of which is on the slide. The audience has met every one
+already. Memory was the 192 GB extraction, the compiler was the crash, the walltime was the
+decoding wall, and the filesystem was the weights staged out to nodes with no egress.
 
 Then the Pythia result, where words, brainwaves and HPC finally meet in one frame. Be careful
 and accurate: the turnover is a few thousandths of R-squared. It is modest and it is real.
@@ -748,13 +751,14 @@ Land on "not faster — different."
 ::: {}
 [What I'd ask for]{.colhead}
 
-- **A documented route for special-category data.** The user guide covers storage and backups,
-  not what may be held or who to agree it with. That conversation decides what social-science
-  work I can bring here.
+- **A documented route for special-category data.** The user guide covers storage and backups.
+  What may be held, and who to agree it with, is left open. That conversation decides what
+  social-science work I can bring here.
 
 - **The array-size cap, written down.** `htc` capped one of my arrays at 1,000 tasks: 4,800
   submitted, 1,000 ran, and a preregistration carries 37 to 48 converged simulations a cell
-  instead of 300. The scheduling page documents partitions and walltimes, but not this.
+  where the design called for 300. The scheduling page documents partitions and walltimes, and
+  stops there.
 :::
 
 ::: {}
@@ -854,8 +858,8 @@ interesting number. What binds is memory, a toolchain or a wall-clock limit, ess
 raw throughput.
 
 **Why not run Stan on a GPU?** For these models it does not help. The bottleneck is posterior
-geometry and the *number* of fits, not dense linear algebra. The project's own rule says so, and
-CI enforces it.
+geometry and the sheer *number* of fits. A GPU accelerates dense linear algebra, which is a
+small part of the work here. The project's own rule says so, and CI enforces it.
 
 **Would a GPU help the LDA decoding?** Possibly, but the cost is 18.9 million *small* fits and
 the permutation null is embarrassingly parallel across time points and folds. An array of CPU
@@ -880,7 +884,7 @@ transcripts are. That is why the workflow outputs a draft a researcher corrects.
 against a far-field baseline near 57% diarisation error, and it has not been run to a result I
 can report.
 
-**Why `-O1` rather than dropping threading?** Because dropping threading changes `reduce_sum`'s
+**Why `-O1`, and why keep threading?** Because dropping threading changes `reduce_sum`'s
 reduction order and therefore the exact posterior draws. The optimisation level does not.
 
 **Have you reported the compiler bug upstream?** The reproducer is five lines and it goes this
@@ -889,9 +893,9 @@ week — a pointer to the right route would help.
 **Is this not BMRC's problem?** BMRC is a separate service. Education is in Social Sciences, so
 ARC is the service I am entitled to and the one I use.
 
-**Could the 14-day wall be shorter?** Fourteen days is what I asked for, not the partition's
-ceiling. For the permutation null I would not go lower, but a fortnight backfills badly, and I
-would rather checkpoint and request less than hold a reservation that size.
+**Could the 14-day wall be shorter?** Fourteen days is what I asked for; the `long` partition
+allows thirty. For the permutation null I would not go lower, but a fortnight backfills badly,
+so I would sooner checkpoint and request less.
 :::
 :::
 

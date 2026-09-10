@@ -196,7 +196,7 @@ $code-block-font-size: 0.60em;
 .reveal .src code { font-size: 1em; background: transparent; padding: 0; }
 
 // ------------------------------------------------------------------ columns --
-.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1em; align-items: start; }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 2.3em; align-items: start; }
 
 // Slides that carry less than the canvas can hold. Setting them with more leading fills the
 // frame without padding the talk: a slide using two thirds of its height reads as unfinished,
@@ -215,8 +215,8 @@ $code-block-font-size: 0.60em;
 .reveal .rule-line p:first-child,
 .reveal .redbox p:first-child,
 .reveal .tealbox p:first-child { margin-top: 0; }
-.cols-6040 { display: grid; grid-template-columns: 1.5fr 1fr; gap: 1.1em; align-items: start; }
-.cols-4060 { display: grid; grid-template-columns: 1fr 1.5fr; gap: 1.1em; align-items: start; }
+.cols-6040 { display: grid; grid-template-columns: 1.5fr 1fr; gap: 2.3em; align-items: start; }
+.cols-4060 { display: grid; grid-template-columns: 1fr 1.5fr; gap: 2.3em; align-items: start; }
 
 // -------------------------------------------------------------- pull quote --
 .pullquote {
@@ -303,6 +303,9 @@ $code-block-font-size: 0.60em;
   padding: 0.05em 0.28em;
   border-radius: 2px;
   font-size: 0.88em;
+  // A module name or a Slurm directive broken across two lines reads as two
+  // things. The columns are narrow enough that this happens without it.
+  white-space: nowrap;
 }
 
 // ------------------------------------------------------------------ figures --

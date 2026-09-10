@@ -71,7 +71,9 @@ def save(fig: plt.Figure, name: str) -> None:
 
 
 # ---------------------------------------------------------------------------
-# 1. MVPA decoding runtimes against the 14-day wall
+# 1. MVPA decoding runtimes against the requested 14-day wall. The long
+#    partition allows thirty days; fourteen is what the job asked for, so the
+#    annotation says so and does not read as a system limit.
 #    Source: LESS-morphosyntactic-transfer/paper_1_transfer/hpc/08_decoding.slurm
 # ---------------------------------------------------------------------------
 def fig_decoding_runtime() -> None:
@@ -107,7 +109,7 @@ def fig_decoding_runtime() -> None:
                     fontweight="bold", zorder=4)
 
     ax.axvline(wall, color=REDLINE, lw=1.6, zorder=5)
-    ax.text(wall - 6, 2.62, "14-day wall", ha="right", va="bottom",
+    ax.text(wall - 6, 2.62, "14-day wall requested", ha="right", va="bottom",
             fontsize=12, color=REDLINE, fontweight="bold")
 
     ax.set_yticks(y)
@@ -151,11 +153,17 @@ def fig_der_meetings() -> None:
 
     macro = summary["macro_der"] * 100
     ax.axhline(macro, color=INK, lw=1.3, ls=(0, (4, 2)), zorder=5)
-    ax.text(len(names) - 0.4, macro + 1.8, f"macro DER {macro:.1f}%",
-            ha="right", fontsize=11, color=INK, fontweight="bold")
+    # Annotate at the left, over the short bars: at the right it sits on top of
+    # the worst meetings, which are the ones the spread is about.
+    ax.text(-0.3, macro + 2.4, f"macro DER {macro:.1f}%",
+            ha="left", fontsize=11, color=INK, fontweight="bold")
 
-    ax.set_xticks(x)
-    ax.set_xticklabels(names, rotation=45, ha="right", fontsize=9.5)
+    # The AMI meeting identifiers carry nothing a listener can use, and sixteen
+    # of them rotated at 45 degrees cost a third of the figure's height. The
+    # argument is the spread, so label the axis with what the bars are.
+    ax.set_xticks([])
+    ax.set_xlabel("16 AMI meetings, each a separate recording, sorted by error rate",
+                  fontsize=10.5, color=MUTED)
     ax.set_ylabel("Diarisation error rate (%)", fontsize=11, color=MUTED)
     ax.set_ylim(0, 82)
     ax.legend(frameon=False, fontsize=10.5, ncol=3, loc="upper left",
@@ -353,34 +361,36 @@ def fig_title_waves() -> None:
 
     t = np.linspace(0, 1, 4000)
 
-    # Six events, each with an event-related potential's own morphology: a sharp
-    # negative deflection followed by a broader, larger positive one. Sizes and
-    # spacings differ and the gaps between are quiet, so the line reads as a
-    # recording rather than as a repeating decorative motif. Decorative all the
-    # same: it illustrates nothing measured.
+    # Eight events, each with an event-related potential's own morphology: a
+    # sharp negative deflection followed by a broader, larger positive one.
+    # Amplitudes range over a factor of three and the spacing is uneven, with one
+    # long quiet stretch, so the line reads as a recording and not as a repeating
+    # motif. Decorative all the same: it illustrates nothing measured.
     #    (dip centre, dip depth, dip width, peak offset, peak height, peak width)
     events = (
-        (0.055, -2.3, 0.013, 0.042, 3.5, 0.026),
-        (0.235, -1.3, 0.010, 0.036, 2.0, 0.020),
-        (0.395, -3.0, 0.015, 0.048, 4.3, 0.031),
-        (0.600, -1.7, 0.011, 0.038, 2.5, 0.022),
-        (0.760, -2.5, 0.014, 0.044, 3.8, 0.028),
-        (0.935, -1.5, 0.010, 0.036, 2.2, 0.021),
+        (0.030, -1.2, 0.011, 0.034, 1.9, 0.024),
+        (0.150, -2.8, 0.014, 0.046, 4.2, 0.032),
+        (0.255, -1.1, 0.009, 0.030, 1.6, 0.019),
+        (0.430, -3.2, 0.016, 0.052, 4.8, 0.036),
+        (0.585, -1.4, 0.010, 0.034, 2.2, 0.022),
+        (0.700, -2.4, 0.013, 0.042, 3.4, 0.029),
+        (0.870, -3.0, 0.015, 0.050, 4.4, 0.034),
+        (0.975, -1.3, 0.010, 0.032, 1.8, 0.021),
     )
     wave = np.zeros_like(t)
     for centre, dip, dip_w, offset, peak, peak_w in events:
         wave += dip * np.exp(-((t - centre) ** 2) / (2 * dip_w**2))
         wave += peak * np.exp(-((t - centre - offset) ** 2) / (2 * peak_w**2))
 
-    # A drift tied back to zero at both ends, so the quiet stretches are alive
+    # A drift tied back to zero at both ends, so the quiet stretches stay alive
     # without the line wandering out of frame.
     drift = np.cumsum(rng.normal(0, 0.05, t.size))
     drift -= np.linspace(drift[0], drift[-1], t.size)
-    wave += drift * 0.14
+    wave += drift * 0.11
 
     ax.plot(t, wave, color=TEAL, lw=2.4, solid_capstyle="round")
     ax.set_xlim(0, 1)
-    ax.set_ylim(-5.0, 5.6)
+    ax.set_ylim(-5.5, 5.5)
     ax.axis("off")
 
     path = OUT / "fig-title-waves.svg"
